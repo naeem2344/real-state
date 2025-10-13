@@ -1,0 +1,11 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.loader__container , .QR__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
