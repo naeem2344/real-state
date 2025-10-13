@@ -40,15 +40,15 @@ const AutoMobileScanner = () => {
 
 
 
- useEffect(() => {
+  useEffect(() => {
     let discountTimer;
     if (!targetDetected) return;
 
 
-        alert(targetDetected);
+    alert(targetDetected);
     alert(localStorage.getItem('modal-key'))
 
-    if (localStorage.getItem('modal-key') === 'done' && (!signInModalOpen || signInModalOpen === 'countinue' )) {
+    if (localStorage.getItem('modal-key') === 'done' && !signInModalOpen) {
       localStorage.setItem('discount-key', 'countinue')
       discountTimer = setTimeout(() => {
         setCouponModal(true);
@@ -93,7 +93,7 @@ const AutoMobileScanner = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen}/>
+      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} />
       <CopyCouponModal />
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
