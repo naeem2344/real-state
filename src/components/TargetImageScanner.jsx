@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import "aframe";
 import "mind-ar/dist/mindar-image-aframe.prod.js";
 
-const TargetImageScanner = ({targetImg,video}) => {
+const TargetImageScanner = ({targetImg,video , setTargetDetected}) => {
   const videoRef = useRef(null);
   const videoEntityRef = useRef(null);
-  const [targetImageDetact, setTargetDetacted] = useState(null)
+  // const [targetImageDetact, setTargetDetacted] = useState(null)
 
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const TargetImageScanner = ({targetImg,video}) => {
 
     const handleTargetFound = () => {
       videoEl.play();
-      setTargetDetacted(true)
+      setTargetDetected(true)
     };
 
     const handleUserInteraction = () => {
@@ -30,14 +30,14 @@ const TargetImageScanner = ({targetImg,video}) => {
     videoEntityEl.addEventListener("targetFound", handleTargetFound);
     videoEntityEl.addEventListener("targetLost", () => {
       videoEl.pause()
-      setTargetDetacted(false)
+      setTargetDetected(false)
     });
 
     return () => {
       videoEntityEl.removeEventListener("targetFound", handleTargetFound);
       videoEntityEl.removeEventListener("targetLost", () => {
         videoEl.pause()
-        setTargetDetacted(false)
+        setTargetDetected(false)
       });
       window.removeEventListener("click", handleUserInteraction);
     };
