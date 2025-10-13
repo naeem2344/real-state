@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Button, Dialog, DialogContent, DialogContentText, Typography } from '@mui/material'
 import copy from 'copy-to-clipboard';
 
-const CopyCouponModal = ({couponOpen}) => {
+const CopyCouponModal = ({ couponOpen }) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [coupon, setCoupon] = useState(null)
 
   const handleCopy = () => {
     copy(coupon)
+    localStorage.setItem('discount-key', 'done');
+    localStorage.clear();
   }
 
   useEffect(() => {
     let code = '';
-    for (let i = 0; i <=8; i++) {
+    for (let i = 0; i <= 8; i++) {
       code += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     setCoupon(code);

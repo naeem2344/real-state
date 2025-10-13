@@ -40,7 +40,19 @@ const AutoMobileScanner = () => {
 
 
 
+ useEffect(() => {
+    let discountTimer;
+    if (!targetDetected) return;
 
+    if (localStorage.getItem('modal-key') === 'done') {
+      localStorage.setItem('discount-key', 'countinue')
+      discountTimer = setTimeout(() => {
+        setCouponModal(true);
+      }, 800);
+    }
+
+    return () => clearTimeout(discountTimer);
+  }, [targetDetected, signInModalOpen]);
 
 
 
