@@ -6,7 +6,7 @@ const RealState = () => {
     return (
         <Suspense fallback={<><Loader /></>}>
             <div className='QR__container'>
-                <QRCode title="Real State QR code" url="hello url"/>
+                <QRCode title="Real State QR code" url="https://real-state-six-jade.vercel.app/real-state-scanner"/>
             </div>
         </Suspense>
     )
