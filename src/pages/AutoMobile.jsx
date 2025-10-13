@@ -6,6 +6,7 @@ const AutoMobile = () => {
     return (
         <Suspense fallback={<Loader />}>
             <div className='QR__container'>
+                <img src='/autoMobile/target-image.jpg' height={400} width={600}/>
                 <QRCode title = 'Auto Mobile QR code' url="https://real-state-six-jade.vercel.app/auto-moble-scanner" />
             </div>
         </Suspense>
