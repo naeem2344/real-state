@@ -44,6 +44,10 @@ const AutoMobileScanner = () => {
     let discountTimer;
     if (!targetDetected) return;
 
+
+        alert(targetDetected);
+    alert(localStorage.getItem('modal-key'))
+
     if (localStorage.getItem('modal-key') === 'done' && (!signInModalOpen || signInModalOpen === 'countinue' )) {
       localStorage.setItem('discount-key', 'countinue')
       discountTimer = setTimeout(() => {
