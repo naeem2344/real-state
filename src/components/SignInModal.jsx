@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
-const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen }) => {
+const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen , setDetails }) => {
   const [userNumber, setUserNumber] = useState('');
   const [isUserEnterNumber, setIsUserEnterNumber] = useState(false);
   const [isValidateUser, setIsValidateUser] = useState(false);
@@ -15,6 +15,7 @@ const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setDetails(pre => ({...pre, contact: userNumber}))
     setIsUserEnterNumber(!isUserEnterNumber)
     setIsValidateUser(true)
   };
@@ -56,6 +57,7 @@ const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen }) => {
             <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
+                setDetails(pre => ({...pre, contact: "Here will be the actuall user email after provide the real client_id"}))
               }}
               onError={() => {
                 console.log('Login Failed');

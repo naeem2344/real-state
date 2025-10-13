@@ -12,10 +12,10 @@ const AutoMobileScanner = () => {
   const [couponModal, setCouponModal] = useState(false);
   const [targetDetected, setTargetDetected] = useState(false);
 
-
-
-
-
+  const saveUserData = () =>{
+    const stringifyUserDetails = JSON.stringify(details);
+    localStorage.setItem('user-details', stringifyUserDetails);
+  }
 
   useEffect(() => {
     let loginTimer;
@@ -38,15 +38,9 @@ const AutoMobileScanner = () => {
   }, [targetDetected, modalKey]);
 
 
-
-
   useEffect(() => {
     let discountTimer;
     if (!targetDetected) return;
-
-
-    alert(targetDetected);
-    alert(localStorage.getItem('modal-key'))
 
     if (localStorage.getItem('modal-key') === 'done' && !signInModalOpen) {
       localStorage.setItem('discount-key', 'countinue')
@@ -57,15 +51,6 @@ const AutoMobileScanner = () => {
 
     return () => clearTimeout(discountTimer);
   }, [targetDetected, signInModalOpen]);
-
-
-
-
-
-
-
-
-
 
 
   useEffect(() => {
@@ -93,8 +78,8 @@ const AutoMobileScanner = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} />
-      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal}/>
+      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails}/>
+      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData}/>
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
   )
