@@ -8,4 +8,9 @@ body{
   justify-content: center;
   align-items: center;
   height: 90vh;
+  flex-direction: column;
+}
+
+.QR__container img{
+  border-radius: 10px;
 }
