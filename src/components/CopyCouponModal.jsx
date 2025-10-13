@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Dialog, DialogContent, DialogContentText, Typography } from '@mui/material'
 import copy from 'copy-to-clipboard';
 
-const CopyCouponModal = ({ couponOpen }) => {
+const CopyCouponModal = ({ couponOpen , setCouponModal }) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [coupon, setCoupon] = useState(null)
 
