@@ -27,7 +27,6 @@ const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails , mod
     event.preventDefault();
     setSignInModalOpenOpen(false);
     localStorage.setItem(modalKey, 'done');
-    setIsUserTryToLogin(false);
   }
 
   const handleNumberChange = (e) => {

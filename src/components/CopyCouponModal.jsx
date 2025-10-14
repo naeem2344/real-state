@@ -12,10 +12,10 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
 
   const handleCopy = () => {
     copy(coupon)
+    localStorage.clear();
     setDetails(pre => ({ ...pre, coupon }))
     localStorage.setItem(discountKey, 'done');
     saveUserData();
-    localStorage.clear();
   }
 
   const isTokenPersent = localStorage.getItem('user-details');

@@ -54,7 +54,7 @@ const TargetImageScanner = ({targetImg,video , setTargetDetected , isPlaying}) =
     } else {
       videoEl.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying , videoRef]);
 
 
   return (
