@@ -49,7 +49,7 @@ const TargetImageScanner = ({targetImg,video , setTargetDetected , isPlaying}) =
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
-    if (isPlaying) {
+    if (!isPlaying) {
       videoEl.play().catch(() => {});
     } else {
       videoEl.pause();

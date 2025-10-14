@@ -8,11 +8,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { Box } from '@mui/material';
 
-const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails , modalKey }) => {
+const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails , modalKey , setIsUserTryToLogin}) => {
   const [userNumber, setUserNumber] = useState('');
   const [isUserEnterNumber, setIsUserEnterNumber] = useState(false);
   const [isValidateUser, setIsValidateUser] = useState(false);
-  const [isUserTryToLogin, setIsUserTryToLogin] = useState(false)
+  // const [isUserTryToLogin, setIsUserTryToLogin] = useState(false)
 
 
   const handleSubmit = (event) => {

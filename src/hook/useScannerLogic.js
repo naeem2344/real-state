@@ -99,6 +99,7 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
   const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
   const [couponModal, setCouponModal] = useState(false);
   const [targetDetected, setTargetDetected] = useState(false);
+   const [isUserTryToLogin, setIsUserTryToLogin] = useState(false)
 
   // Save user data to localStorage
   const saveUserData = () => {
@@ -179,6 +180,8 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     targetDetected,
     setTargetDetected,
     saveUserData,
+    isUserTryToLogin, 
+    setIsUserTryToLogin
   };
 };
 

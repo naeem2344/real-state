@@ -18,6 +18,8 @@ const AutoMobileScanner = () => {
     targetDetected,
     setTargetDetected,
     saveUserData,
+    isUserTryToLogin,
+    setIsUserTryToLogin
   } = useScannerLogic({
     targetImg: '/autoMobile/auto-mobile-mind-ar.mind',
     video: '/autoMobile/auto-mobile-video.mp4',
@@ -28,7 +30,7 @@ const AutoMobileScanner = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} modalKey={'e-modal-key'} />
+      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} modalKey={'e-modal-key'} setIsUserTryToLogin={setIsUserTryToLogin}/>
       <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={false} discountKey={'e-discount-key'} />
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
