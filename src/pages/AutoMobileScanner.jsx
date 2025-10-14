@@ -1,79 +1,95 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import CopyCouponModal from '../components/CopyCouponModal';
+import useScannerLogic from '../hook/useScannerLogic';
 const Loader = lazy(() => import('../components/Loader'))
 const TargetImageScanner = lazy(() => import('../components/TargetImageScanner'));
 const SignInModal = lazy(() => import('../components/SignInModal'));
 
 const AutoMobileScanner = () => {
-  const [targetState, setTargetState] = useState({ targetImg: '/autoMobile/auto-mobile-mind-ar.mind', video: "/autoMobile/auto-mobile-video.mp4" });
-  const [details, setDetails] = useState(null);
-  const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
-  const modalKey = localStorage.getItem('modal-key');
-  const [couponModal, setCouponModal] = useState(false);
-  const [targetDetected, setTargetDetected] = useState(false);
+  // const [targetState, setTargetState] = useState({ targetImg: '/autoMobile/auto-mobile-mind-ar.mind', video: "/autoMobile/auto-mobile-video.mp4" });
+  // const [details, setDetails] = useState(null);
+  // const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
+  // const modalKey = localStorage.getItem('modal-key');
+  // const [couponModal, setCouponModal] = useState(false);
+  // const [targetDetected, setTargetDetected] = useState(false);
 
-  const saveUserData = () =>{
-    const stringifyUserDetails = JSON.stringify(details);
-    localStorage.setItem('user-details', stringifyUserDetails);
-  }
+  // const saveUserData = () =>{
+  //   const stringifyUserDetails = JSON.stringify(details);
+  //   localStorage.setItem('user-details', stringifyUserDetails);
+  // }
 
-  useEffect(() => {
-    let loginTimer;
+  // useEffect(() => {
+  //   let loginTimer;
 
-    if (targetDetected) {
-      if (modalKey === 'countinue' || !modalKey) {
-        localStorage.setItem('modal-key', 'countinue')
-        loginTimer = setTimeout(() => {
-          setSignInModalOpenOpen(true);
-        }, 500);
-      }
-    } else {
-      setSignInModalOpenOpen(false);
-      setCouponModal(false);
-    }
+  //   if (targetDetected) {
+  //     if (modalKey === 'countinue' || !modalKey) {
+  //       localStorage.setItem('modal-key', 'countinue')
+  //       loginTimer = setTimeout(() => {
+  //         setSignInModalOpenOpen(true);
+  //       }, 500);
+  //     }
+  //   } else {
+  //     setSignInModalOpenOpen(false);
+  //     setCouponModal(false);
+  //   }
 
-    return () => {
-      clearTimeout(loginTimer);
-    };
-  }, [targetDetected, modalKey]);
-
-
-  useEffect(() => {
-    let discountTimer;
-    if (!targetDetected) return;
-
-    if (localStorage.getItem('modal-key') === 'done' && !signInModalOpen) {
-      localStorage.setItem('discount-key', 'countinue')
-      discountTimer = setTimeout(() => {
-        setCouponModal(true);
-      }, 800);
-    }
-
-    return () => clearTimeout(discountTimer);
-  }, [targetDetected, signInModalOpen]);
+  //   return () => {
+  //     clearTimeout(loginTimer);
+  //   };
+  // }, [targetDetected, modalKey]);
 
 
-  useEffect(() => {
-    const deviceName = navigator?.userAgentData?.platform || navigator?.platform;
-    if (deviceName) {
-      setDetails(pre => ({ ...pre, deviceName }))
-    }
+  // useEffect(() => {
+  //   let discountTimer;
+  //   if (!targetDetected) return;
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          setDetails(pre => ({ ...pre, location: { latitude, longitude } }));
-        },
-        (error) => {
-          console.error("Error getting location:", error.message);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, [])
+  //   if (localStorage.getItem('modal-key') === 'done' && !signInModalOpen) {
+  //     localStorage.setItem('discount-key', 'countinue')
+  //     discountTimer = setTimeout(() => {
+  //       setCouponModal(true);
+  //     }, 800);
+  //   }
+
+  //   return () => clearTimeout(discountTimer);
+  // }, [targetDetected, signInModalOpen]);
+
+
+  // useEffect(() => {
+  //   const deviceName = navigator?.userAgentData?.platform || navigator?.platform;
+  //   if (deviceName) {
+  //     setDetails(pre => ({ ...pre, deviceName }))
+  //   }
+
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const latitude = position.coords.latitude;
+  //         const longitude = position.coords.longitude;
+  //         setDetails(pre => ({ ...pre, location: { latitude, longitude } }));
+  //       },
+  //       (error) => {
+  //         console.error("Error getting location:", error.message);
+  //       }
+  //     );
+  //   } else {
+  //     console.error("Geolocation is not supported by this browser.");
+  //   }
+  // }, [])
+
+  const {
+    targetState,
+    setDetails,
+    signInModalOpen,
+    setSignInModalOpenOpen,
+    couponModal,
+    setCouponModal,
+    targetDetected,
+    setTargetDetected,
+    saveUserData,
+  } = useScannerLogic({
+    targetImg: '/autoMobile/auto-mobile-mind-ar.mind',
+    video: '/autoMobile/auto-mobile-video.mp4',
+  });
 
 
   return (
