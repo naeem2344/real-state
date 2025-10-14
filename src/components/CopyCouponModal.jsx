@@ -21,8 +21,7 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
   useEffect(() => {
     const isTokenPersent = localStorage.getItem('user-details');
     let code = '';
-
-    if (isRealEstate) {
+    if (isTokenPersent) {
       const parseData = JSON.parse(isTokenPersent);
       const { coupon } = parseData;
       code = coupon;
@@ -35,6 +34,7 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
 
     setCoupon(code);
   }, []);
+
 
 
 
