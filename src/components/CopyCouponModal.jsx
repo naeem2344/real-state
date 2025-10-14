@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, useEffect, useState } from 'react'
 import { Button, Dialog, DialogContent, DialogContentText, Typography } from '@mui/material'
 import copy from 'copy-to-clipboard';
+const ShowBrockers = lazy(() => import('./ShowBrockers'));
 
-const CopyCouponModal = ({ couponOpen , setCouponModal , setDetails , saveUserData }) => {
+const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate }) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [coupon, setCoupon] = useState(null)
 
   const handleCopy = () => {
     copy(coupon)
-    setDetails(pre => ({...pre, coupon}))
+    setDetails(pre => ({ ...pre, coupon }))
     localStorage.setItem('discount-key', 'done');
     saveUserData()
   }
@@ -20,10 +21,6 @@ const CopyCouponModal = ({ couponOpen , setCouponModal , setDetails , saveUserDa
     }
     setCoupon(code);
   }, []);
-
-
-
-
 
 
   return (
@@ -38,6 +35,7 @@ const CopyCouponModal = ({ couponOpen , setCouponModal , setDetails , saveUserDa
           <Button variant="contained" disableElevation sx={{ width: '100%', mt: 2 }} onClick={handleCopy}>
             Copy
           </Button>
+          {isRealEstate && <ShowBrockers />}
         </DialogContent>
       </Dialog>
     </React.Fragment>

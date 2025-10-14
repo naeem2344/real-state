@@ -79,7 +79,7 @@ const AutoMobileScanner = () => {
   return (
     <Suspense fallback={<Loader />}>
       <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails}/>
-      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData}/>
+      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={false}/>
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
   )

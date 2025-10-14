@@ -3,7 +3,7 @@ import { Button, AppBar, Box, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
-const pages = [{name:'Real state',url: '/'}, {name: 'Auto mobile', url: '/auto-moble'}];
+const pages = [{name:'Real e-state',url: '/'}, {name: 'Auto mobile', url: '/auto-moble'}];
 const Navebar = () => {
     const navigate = useNavigate();
 
