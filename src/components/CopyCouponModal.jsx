@@ -14,7 +14,8 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate , 
     copy(coupon)
     setDetails(pre => ({ ...pre, coupon }))
     localStorage.setItem(discountKey, 'done');
-    saveUserData()
+    saveUserData();
+    localStorage.clear();
   }
 
   useEffect(() => {
