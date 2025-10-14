@@ -3,6 +3,7 @@ import useScannerLogic from '../hook/useScannerLogic';
 const CopyCouponModal = lazy(() => import('../components/CopyCouponModal'))
 const TargetImageScanner = lazy(() => import('../components/TargetImageScanner'));
 const Loader = lazy(() => import('../components/Loader'));
+const SignInModal = lazy(() => import('../components/SignInModal'));
 
 const RealStateScanner = () => {
   const {
