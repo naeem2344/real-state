@@ -48,13 +48,10 @@ const TargetImageScanner = ({targetImg,video , setTargetDetected , isPlaying}) =
     useEffect(() => {
     const videoEl = videoRef.current;
     if (!videoEl) return;
-    alert(isPlaying)
     
     if (!isPlaying) {
-      alert('yes')
       videoEl.play().catch(() => {});
     } else {
-      alert('no')
       videoEl.pause();
     }
   }, [isPlaying , videoRef]);

@@ -24,15 +24,15 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
     if (isTokenPersent) {
       const parseData = JSON.parse(isTokenPersent);
       const { coupon } = parseData;
-      code = coupon;
+      setCoupon(coupon);
     } else {
 
       for (let i = 0; i <= 8; i++) {
         code += characters.charAt(Math.floor(Math.random() * characters.length));
+        setCoupon(code);
       }
     }
 
-    setCoupon(code);
   }, [isTokenPersent]);
 
 
