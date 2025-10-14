@@ -21,6 +21,8 @@ const RealStateScanner = () => {
     video: '/realEstate/real-estate-video.mp4',
   });
 
+  // console.log(targetState)
+
   return (
     <Suspense fallback={<Loader />}>
       <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails}/>

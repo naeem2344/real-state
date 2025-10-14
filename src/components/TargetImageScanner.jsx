@@ -5,8 +5,9 @@ import "mind-ar/dist/mindar-image-aframe.prod.js";
 const TargetImageScanner = ({targetImg,video , setTargetDetected}) => {
   const videoRef = useRef(null);
   const videoEntityRef = useRef(null);
-  // const [targetImageDetact, setTargetDetacted] = useState(null)
 
+
+  console.log(targetImg,video)
 
   useEffect(() => {
     const videoEl = videoRef.current;
