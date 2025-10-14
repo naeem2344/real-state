@@ -129,15 +129,17 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
   }, [targetDetected, modalKey]);
 
   // 🔹 Open Coupon Modal after SignIn modal is closed
+  const dfsdf = localStorage.getItem(modalKey);
   useEffect(() => {
     let discountTimer;
 
-    if (targetDetected && !signInModalOpen) {
+    if (targetDetected && !signInModalOpen && dfsdf) {
       const storedDiscountKey = localStorage.getItem(discountKey);
-      if (!storedDiscountKey || storedDiscountKey === 'countinue') {
+      if ((!storedDiscountKey || storedDiscountKey === 'countinue') && dfsdf==='done') {
         localStorage.setItem(discountKey, 'countinue');
         discountTimer = setTimeout(() => setCouponModal(true), 800);
       }
+
       const data = localStorage.getItem('user-details');
       if (storedDiscountKey === 'done' || data) {
         setCouponModal(true)
@@ -145,7 +147,7 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     }
 
     return () => clearTimeout(discountTimer);
-  }, [signInModalOpen, targetDetected, discountKey]);
+  }, [signInModalOpen, targetDetected, discountKey , dfsdf]);
 
   // 🔹 Capture device and location info
   useEffect(() => {
