@@ -142,7 +142,7 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
       }
 
       const data = localStorage.getItem('user-details');
-      if (storedDiscountKey === 'done' || data) {
+      if (storedDiscountKey === 'done' && data) {
         setCouponModal(true)
       }
     }

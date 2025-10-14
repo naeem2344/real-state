@@ -32,7 +32,7 @@ const AutoMobileScanner = () => {
     <Suspense fallback={<Loader />}>
       <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} modalKey={'e-modal-key'} setIsUserTryToLogin={setIsUserTryToLogin}/>
       <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={false} discountKey={'e-discount-key'} />
-      <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
+      <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} isPlaying = {isUserTryToLogin}/>
     </Suspense>
   )
 }

@@ -29,7 +29,7 @@ const RealStateScanner = () => {
     <Suspense fallback={<Loader />}>
       <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} modalKey={'modal-key'} setIsUserTryToLogin={setIsUserTryToLogin} />
       <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={true} discountKey={'discount-key'} />
-      <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
+      <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} isPlaying = {isUserTryToLogin}/>
     </Suspense>
   )
 }
