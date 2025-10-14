@@ -12,6 +12,7 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
     setDetails(pre => ({ ...pre, coupon }))
     localStorage.setItem(discountKey, 'done');
     saveUserData();
+    localStorage.clear();
   }
 
   const isTokenPersent = localStorage.getItem('user-details');
@@ -25,8 +26,8 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
 
       for (let i = 0; i <= 8; i++) {
         code += characters.charAt(Math.floor(Math.random() * characters.length));
-        setCoupon(code);
       }
+      setCoupon(code);
     }
 
   }, [isTokenPersent]);
