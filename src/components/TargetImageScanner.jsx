@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import "aframe";
 import "mind-ar/dist/mindar-image-aframe.prod.js";
 
-const TargetImageScanner = ({targetImg,video , setTargetDetected}) => {
+const TargetImageScanner = ({targetImg,video , setTargetDetected , isPlaying}) => {
   const videoRef = useRef(null);
   const videoEntityRef = useRef(null);
 
@@ -43,6 +43,18 @@ const TargetImageScanner = ({targetImg,video , setTargetDetected}) => {
       window.removeEventListener("click", handleUserInteraction);
     };
   }, []);
+
+
+    useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    if (isPlaying) {
+      videoEl.play().catch(() => {});
+    } else {
+      videoEl.pause();
+    }
+  }, [isPlaying]);
 
 
   return (

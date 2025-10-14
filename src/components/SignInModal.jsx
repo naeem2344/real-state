@@ -6,32 +6,39 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { Box } from '@mui/material';
 
-const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen , setDetails }) => {
+const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails }) => {
   const [userNumber, setUserNumber] = useState('');
   const [isUserEnterNumber, setIsUserEnterNumber] = useState(false);
   const [isValidateUser, setIsValidateUser] = useState(false);
+  const [isUserTryToLogin, setIsUserTryToLogin] = useState(false)
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setDetails(pre => ({...pre, contact: userNumber}))
+    setDetails(pre => ({ ...pre, contact: userNumber }))
     setIsUserEnterNumber(!isUserEnterNumber)
-    setIsValidateUser(true)
+    setIsValidateUser(true);
+    setIsUserTryToLogin(false);
   };
 
   const handleCountinue = (event) => {
     event.preventDefault();
     setSignInModalOpenOpen(false);
     localStorage.setItem('modal-key', 'done');
+    setIsUserTryToLogin(false)
   }
 
   const handleNumberChange = (e) => {
     const value = e.target.value;
     setUserNumber(value);
     setIsUserEnterNumber(value.trim().length > 0);
+    setIsUserTryToLogin(true);
   };
-  
+
+  // console.log(isUserTryToLogin)
+
   return (
     <React.Fragment>
       <Dialog open={signInModalOpen} sx={{ bgcolor: 'transparent' }}>
@@ -53,17 +60,21 @@ const SignInModal = ({ setSignInModalOpenOpen , signInModalOpen , setDetails }) 
             onChange={handleNumberChange}
           />
 
-          <GoogleOAuthProvider clientId="<your_client_id>" >
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-                setDetails(pre => ({...pre, contact: "Here will be the actuall user email after provide the real client_id"}))
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            />
-          </GoogleOAuthProvider>
+          <Box component={'div'} onClick={() => setIsUserTryToLogin(true)}>
+            <GoogleOAuthProvider clientId="<your_client_id>" >
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                  setIsUserTryToLogin(false)
+                  setDetails(pre => ({ ...pre, contact: "Here will be the actuall user email after provide the real client_id" }))
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                  setIsUserTryToLogin(false)
+                }}
+              />
+            </GoogleOAuthProvider>
+          </Box>
 
           {isUserEnterNumber && (
             <Button
