@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const useScannerLogic = ({ targetImg, video }) => {
+const useScannerLogic = ({ targetImg, video , discountKey , modalKey }) => {
   const [targetState, setTargetState] = useState({ targetImg, video });
   const [details, setDetails] = useState(null);
   const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
   const [couponModal, setCouponModal] = useState(false);
   const [targetDetected, setTargetDetected] = useState(false);
 
-  const modalKey = localStorage.getItem('modal-key');
+  const lModalKey = localStorage.getItem(modalKey);
 
   const saveUserData = () => {
     const stringifyUserDetails = JSON.stringify(details);
@@ -19,7 +19,7 @@ const useScannerLogic = ({ targetImg, video }) => {
     let loginTimer;
 
     if (targetDetected) {
-      if (modalKey === 'countinue' || !modalKey) {
+      if (lModalKey === 'countinue' || !lModalKey) {
         localStorage.setItem('modal-key', 'countinue');
         loginTimer = setTimeout(() => {
           setSignInModalOpenOpen(true);
@@ -31,22 +31,22 @@ const useScannerLogic = ({ targetImg, video }) => {
     }
 
     return () => clearTimeout(loginTimer);
-  }, [targetDetected, modalKey]);
+  }, [targetDetected, lModalKey]);
 
   // 🔹 Show discount modal after login
   useEffect(() => {
     let discountTimer;
     if (!targetDetected) return;
 
-    if (localStorage.getItem('modal-key') === 'done' && !signInModalOpen) {
-      localStorage.setItem('discount-key', 'countinue');
+    if (localStorage.getItem(lModalKey) === 'done' && !signInModalOpen) {
+      localStorage.setItem(discountKey, 'countinue');
       discountTimer = setTimeout(() => {
         setCouponModal(true);
       }, 800);
     }
 
     return () => clearTimeout(discountTimer);
-  }, [targetDetected, signInModalOpen]);
+  }, [targetDetected, signInModalOpen , discountKey]);
 
   // 🔹 Capture device and location info
   useEffect(() => {

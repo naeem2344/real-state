@@ -19,11 +19,13 @@ const RealStateScanner = () => {
   } = useScannerLogic({
     targetImg: '/realEstate/real-estate-target.mind',
     video: '/realEstate/real-estate-video.mp4',
+    modalKey: 'modal-key',
+    discountKey: 'discount-key',
   });
 
   return (
     <Suspense fallback={<Loader />}>
-      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails}/>
+      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} />
       <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={true} />
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
