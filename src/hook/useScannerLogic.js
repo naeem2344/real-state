@@ -114,8 +114,8 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
 
     if (targetDetected) {
       const storedModalKey = localStorage.getItem(modalKey);
-      const data = localStorage.getItem('user-details');
-      if (data) return;
+      // const data = localStorage.getItem('user-details');
+      // if (data) return;
 
       if (!storedModalKey || storedModalKey === 'countinue') {
         localStorage.setItem(modalKey, 'countinue');
