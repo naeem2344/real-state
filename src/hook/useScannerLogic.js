@@ -1,52 +1,144 @@
+// import { useEffect, useState } from 'react';
+
+// const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
+//   const [targetState, setTargetState] = useState({ targetImg, video });
+//   const [details, setDetails] = useState(null);
+//   const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
+//   const [couponModal, setCouponModal] = useState(false);
+//   const [targetDetected, setTargetDetected] = useState(false);
+
+//   const lModalKey = localStorage.getItem(modalKey);
+
+//   const saveUserData = () => {
+//     const stringifyUserDetails = JSON.stringify(details);
+//     localStorage.setItem('user-details', stringifyUserDetails);
+//   };
+
+//   // 🔹 Open SignIn Modal when target detected
+//   useEffect(() => {
+//     let loginTimer;
+
+//     if (targetDetected) {
+//       if (lModalKey === 'countinue' || !lModalKey) {
+//         localStorage.setItem(modalKey, 'countinue');
+//         loginTimer = setTimeout(() => {
+//           setSignInModalOpenOpen(true);
+//         }, 500);
+//       }
+//     } else {
+//       setSignInModalOpenOpen(false);
+//       setCouponModal(false);
+//     }
+
+//     return () => clearTimeout(loginTimer);
+//   }, [targetDetected, lModalKey]);
+
+//   // 🔹 Show discount modal after login
+//   useEffect(() => {
+//     let discountTimer;
+//     if (!targetDetected) return;
+
+//     if (localStorage.getItem(lModalKey) === 'done' && (localStorage.getItem(discountKey) === 'countinue' || !localStorage.getItem(discountKey) || signInModalOpen)) {
+//       localStorage.setItem(discountKey, 'countinue');
+//       discountTimer = setTimeout(() => {
+//         setCouponModal(true);
+//       }, 800);
+//     }
+
+//     return () => clearTimeout(discountTimer);
+//   }, [targetDetected, signInModalOpen, discountKey]);
+
+//   // 🔹 Capture device and location info
+//   useEffect(() => {
+//     const deviceName = navigator?.userAgentData?.platform || navigator?.platform;
+//     if (deviceName) {
+//       setDetails((prev) => ({ ...prev, deviceName }));
+//     }
+
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const latitude = position.coords.latitude;
+//           const longitude = position.coords.longitude;
+//           setDetails((prev) => ({
+//             ...prev,
+//             location: { latitude, longitude },
+//           }));
+//         },
+//         (error) => console.error('Error getting location:', error.message)
+//       );
+//     } else {
+//       console.error('Geolocation not supported.');
+//     }
+//   }, []);
+
+//   return {
+//     targetState,
+//     setTargetState,
+//     details,
+//     setDetails,
+//     signInModalOpen,
+//     setSignInModalOpenOpen,
+//     couponModal,
+//     setCouponModal,
+//     targetDetected,
+//     setTargetDetected,
+//     saveUserData,
+//   };
+// };
+
+// export default useScannerLogic;
+
+
+
 import { useEffect, useState } from 'react';
 
 const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
   const [targetState, setTargetState] = useState({ targetImg, video });
   const [details, setDetails] = useState(null);
-  const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
+  const [signInModalOpen, setSignInModalOpen] = useState(false);
   const [couponModal, setCouponModal] = useState(false);
   const [targetDetected, setTargetDetected] = useState(false);
 
-  const lModalKey = localStorage.getItem(modalKey);
-
+  // Save user data to localStorage
   const saveUserData = () => {
-    const stringifyUserDetails = JSON.stringify(details);
-    localStorage.setItem('user-details', stringifyUserDetails);
+    if (details) {
+      localStorage.setItem('user-details', JSON.stringify(details));
+    }
   };
 
-  // 🔹 Open SignIn Modal when target detected
+  // 🔹 Open SignIn Modal when target is detected
   useEffect(() => {
     let loginTimer;
 
     if (targetDetected) {
-      if (lModalKey === 'countinue' || !lModalKey) {
+      const storedModalKey = localStorage.getItem(modalKey);
+      if (!storedModalKey || storedModalKey === 'countinue') {
         localStorage.setItem(modalKey, 'countinue');
-        loginTimer = setTimeout(() => {
-          setSignInModalOpenOpen(true);
-        }, 500);
+        loginTimer = setTimeout(() => setSignInModalOpen(true), 500);
       }
     } else {
-      setSignInModalOpenOpen(false);
+      setSignInModalOpen(false);
       setCouponModal(false);
     }
 
     return () => clearTimeout(loginTimer);
-  }, [targetDetected, lModalKey]);
+  }, [targetDetected, modalKey]);
 
-  // 🔹 Show discount modal after login
+  // 🔹 Open Coupon Modal after SignIn modal is closed
   useEffect(() => {
     let discountTimer;
-    if (!targetDetected) return;
 
-    if (localStorage.getItem(lModalKey) === 'done' && (localStorage.getItem(discountKey) === 'countinue' || !localStorage.getItem(discountKey) || signInModalOpen)) {
-      localStorage.setItem(discountKey, 'countinue');
-      discountTimer = setTimeout(() => {
-        setCouponModal(true);
-      }, 800);
+    if (targetDetected && !signInModalOpen) {
+      const storedDiscountKey = localStorage.getItem(discountKey);
+      if (!storedDiscountKey || storedDiscountKey === 'countinue') {
+        localStorage.setItem(discountKey, 'countinue');
+        discountTimer = setTimeout(() => setCouponModal(true), 800);
+      }
     }
 
     return () => clearTimeout(discountTimer);
-  }, [targetDetected, signInModalOpen, discountKey]);
+  }, [signInModalOpen, targetDetected, discountKey]);
 
   // 🔹 Capture device and location info
   useEffect(() => {
@@ -58,17 +150,11 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          setDetails((prev) => ({
-            ...prev,
-            location: { latitude, longitude },
-          }));
+          const { latitude, longitude } = position.coords;
+          setDetails((prev) => ({ ...prev, location: { latitude, longitude } }));
         },
         (error) => console.error('Error getting location:', error.message)
       );
-    } else {
-      console.error('Geolocation not supported.');
     }
   }, []);
 
@@ -78,7 +164,7 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     details,
     setDetails,
     signInModalOpen,
-    setSignInModalOpenOpen,
+    setSignInModalOpen,
     couponModal,
     setCouponModal,
     targetDetected,
