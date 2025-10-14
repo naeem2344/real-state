@@ -7,12 +7,8 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [coupon, setCoupon] = useState(null);
 
-  //   modalKey: 'e-modal-key',
-  // discountKey: 'e-discount-key',
-
   const handleCopy = () => {
     copy(coupon)
-    // localStorage.clear(); 
     setDetails(pre => ({ ...pre, coupon }))
     localStorage.setItem(discountKey, 'done');
     saveUserData();
@@ -34,10 +30,6 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, d
     }
 
   }, [isTokenPersent]);
-
-
-
-
 
 
   return (
