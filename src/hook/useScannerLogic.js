@@ -113,6 +113,9 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
 
     if (targetDetected) {
       const storedModalKey = localStorage.getItem(modalKey);
+      const data = localStorage.getItem('user-details');
+      if (data) return;
+
       if (!storedModalKey || storedModalKey === 'countinue') {
         localStorage.setItem(modalKey, 'countinue');
         loginTimer = setTimeout(() => setSignInModalOpen(true), 500);
@@ -134,6 +137,10 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
       if (!storedDiscountKey || storedDiscountKey === 'countinue') {
         localStorage.setItem(discountKey, 'countinue');
         discountTimer = setTimeout(() => setCouponModal(true), 800);
+      }
+      const data = localStorage.getItem('user-details');
+      if (storedDiscountKey === 'done' || data) {
+        setCouponModal(true)
       }
     }
 

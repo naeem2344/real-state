@@ -3,12 +3,12 @@ import { Button, Dialog, DialogContent, DialogContentText, Typography } from '@m
 import copy from 'copy-to-clipboard';
 const ShowBrockers = lazy(() => import('./ShowBrockers'));
 
-const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate , discountKey }) => {
+const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate, discountKey }) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [coupon, setCoupon] = useState(null);
 
-    //   modalKey: 'e-modal-key',
-    // discountKey: 'e-discount-key',
+  //   modalKey: 'e-modal-key',
+  // discountKey: 'e-discount-key',
 
   const handleCopy = () => {
     copy(coupon)
@@ -19,12 +19,25 @@ const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate , 
   }
 
   useEffect(() => {
+    const isTokenPersent = localStorage.getItem('user-details');
     let code = '';
-    for (let i = 0; i <= 8; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
+
+    if (isRealEstate) {
+      const parseData = JSON.parse(isTokenPersent);
+      const { coupon } = parseData;
+      code = coupon;
+    } else {
+
+      for (let i = 0; i <= 8; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
     }
+
     setCoupon(code);
   }, []);
+
+
+
 
 
   return (
