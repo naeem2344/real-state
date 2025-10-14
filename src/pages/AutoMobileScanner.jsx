@@ -6,7 +6,7 @@ const TargetImageScanner = lazy(() => import('../components/TargetImageScanner')
 const SignInModal = lazy(() => import('../components/SignInModal'));
 
 const AutoMobileScanner = () => {
-  
+
 
   const {
     targetState,
@@ -21,13 +21,15 @@ const AutoMobileScanner = () => {
   } = useScannerLogic({
     targetImg: '/autoMobile/auto-mobile-mind-ar.mind',
     video: '/autoMobile/auto-mobile-video.mp4',
+    modalKey: 'e-modal-key',
+    discountKey: 'e-discount-key',
   });
 
 
   return (
     <Suspense fallback={<Loader />}>
-      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails}/>
-      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={false}/>
+      <SignInModal signInModalOpen={signInModalOpen} setSignInModalOpenOpen={setSignInModalOpenOpen} setDetails={setDetails} modalKey={'e-modal-key'} />
+      <CopyCouponModal couponOpen={couponModal} setCouponModal={setCouponModal} setDetails={setDetails} saveUserData={saveUserData} isRealEstate={false} discountKey={'e-discount-key'} />
       <TargetImageScanner {...targetState} setTargetDetected={setTargetDetected} />
     </Suspense>
   )

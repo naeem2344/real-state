@@ -3,14 +3,17 @@ import { Button, Dialog, DialogContent, DialogContentText, Typography } from '@m
 import copy from 'copy-to-clipboard';
 const ShowBrockers = lazy(() => import('./ShowBrockers'));
 
-const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate }) => {
+const CopyCouponModal = ({ couponOpen, setDetails, saveUserData, isRealEstate , discountKey }) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const [coupon, setCoupon] = useState(null)
+  const [coupon, setCoupon] = useState(null);
+
+    //   modalKey: 'e-modal-key',
+    // discountKey: 'e-discount-key',
 
   const handleCopy = () => {
     copy(coupon)
     setDetails(pre => ({ ...pre, coupon }))
-    localStorage.setItem('discount-key', 'done');
+    localStorage.setItem(discountKey, 'done');
     saveUserData()
   }
 

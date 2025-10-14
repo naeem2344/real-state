@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { Box } from '@mui/material';
 
-const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails }) => {
+const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails , modalKey }) => {
   const [userNumber, setUserNumber] = useState('');
   const [isUserEnterNumber, setIsUserEnterNumber] = useState(false);
   const [isValidateUser, setIsValidateUser] = useState(false);
@@ -26,7 +26,7 @@ const SignInModal = ({ setSignInModalOpenOpen, signInModalOpen, setDetails }) =>
   const handleCountinue = (event) => {
     event.preventDefault();
     setSignInModalOpenOpen(false);
-    localStorage.setItem('modal-key', 'done');
+    localStorage.setItem(modalKey, 'done');
     setIsUserTryToLogin(false)
   }
 
