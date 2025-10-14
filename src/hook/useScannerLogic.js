@@ -96,7 +96,7 @@ import { useEffect, useState } from 'react';
 const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
   const [targetState, setTargetState] = useState({ targetImg, video });
   const [details, setDetails] = useState(null);
-  const [signInModalOpen, setSignInModalOpen] = useState(false);
+  const [signInModalOpen, setSignInModalOpenOpen] = useState(false);
   const [couponModal, setCouponModal] = useState(false);
   const [targetDetected, setTargetDetected] = useState(false);
 
@@ -118,10 +118,10 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
 
       if (!storedModalKey || storedModalKey === 'countinue') {
         localStorage.setItem(modalKey, 'countinue');
-        loginTimer = setTimeout(() => setSignInModalOpen(true), 500);
+        loginTimer = setTimeout(() => setSignInModalOpenOpen(true), 500);
       }
     } else {
-      setSignInModalOpen(false);
+      setSignInModalOpenOpen(false);
       setCouponModal(false);
     }
 
@@ -173,7 +173,7 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     details,
     setDetails,
     signInModalOpen,
-    setSignInModalOpen,
+    setSignInModalOpenOpen,
     couponModal,
     setCouponModal,
     targetDetected,
