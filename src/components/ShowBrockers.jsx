@@ -27,6 +27,10 @@ const ShowBrockers = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleLocalStorage = () =>{
+    localStorage.clear();
+  }
+
   return (
     <React.Fragment>
       <Button variant="contained" color="primary" onClick={handleOpen} sx={{ mt: 3, width: '100%' }}>
@@ -35,6 +39,9 @@ const ShowBrockers = () => {
 
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
+          <Button variant="contained" color="primary" onClick={handleLocalStorage} sx={{ mt: 3, width: '100%' }}>
+            Remove all Records
+          </Button>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
             Official Bugatti Dealers
           </Typography>
@@ -73,7 +80,7 @@ const ShowBrockers = () => {
             onClick={handleClose}
             variant="outlined"
             color="secondary"
-            sx={{ mt: 3 , mb: 3 }}
+            sx={{ mt: 3, mb: 3 }}
           >
             Close
           </Button>
