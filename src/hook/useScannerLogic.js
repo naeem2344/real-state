@@ -15,14 +15,12 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     }
   };
 
-  // 🔹 Open SignIn Modal when target is detected
   useEffect(() => {
     let loginTimer;
 
     if (targetDetected) {
       const storedModalKey = localStorage.getItem(modalKey);
-      // const data = localStorage.getItem('user-details');
-      // if (data) return;
+
 
       if (!storedModalKey || storedModalKey === 'countinue') {
         localStorage.setItem(modalKey, 'countinue');
@@ -36,7 +34,6 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     return () => clearTimeout(loginTimer);
   }, [targetDetected, modalKey]);
 
-  // 🔹 Open Coupon Modal after SignIn modal is closed
   const dfsdf = localStorage.getItem(modalKey);
   useEffect(() => {
     let discountTimer;
@@ -57,7 +54,6 @@ const useScannerLogic = ({ targetImg, video, discountKey, modalKey }) => {
     return () => clearTimeout(discountTimer);
   }, [signInModalOpen, targetDetected, discountKey , dfsdf]);
 
-  // 🔹 Capture device and location info
   useEffect(() => {
     const deviceName = navigator?.userAgentData?.platform || navigator?.platform;
     if (deviceName) {
